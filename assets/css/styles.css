@@ -442,6 +442,39 @@ section:nth-child(even) { background: var(--ff-surface); }
 .final-cta h2 { margin-bottom: 16px; }
 .final-cta p { color: var(--ff-text-muted); font-size: 1.1rem; max-width: 520px; margin: 0 auto 32px; }
 
+/* ── Contact ── */
+.contact-form {
+  max-width: 680px;
+  margin: 24px auto 0;
+  text-align: left;
+  background: var(--ff-surface-2);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 24px;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  background: #101028;
+  color: var(--ff-text);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 8px;
+  padding: 12px;
+  font: inherit;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--ff-primary-lt);
+}
+.contact-form button { margin-top: 4px; }
+
 /* ═══════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════ */
@@ -570,5 +603,6 @@ section:nth-child(even) { background: var(--ff-surface); }
   .solution-content { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; gap: 24px; }
   .pricing-card { padding: 36px 24px; }
+  .contact-grid { grid-template-columns: 1fr; }
   section { padding: 60px 0; }
 }
