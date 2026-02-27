@@ -1,6 +1,6 @@
 # FailFixer Marketing Website
 
-Static marketing website for FailFixer — the desktop tool that resumes failed 3D prints.
+Static marketing website for FailFixer — the desktop tool that recovers failed 3D prints with two modes: Resume In-Air and Restart from Build Plate.
 
 ## Project Structure
 
