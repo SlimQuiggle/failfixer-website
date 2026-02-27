@@ -453,6 +453,24 @@ section:nth-child(even) { background: var(--ff-surface); }
   padding: 24px;
 }
 .form-stack { margin-top: 16px; }
+.bug-panel {
+  max-width: 680px;
+  margin: 14px auto 0;
+  text-align: left;
+}
+.bug-panel > summary {
+  list-style: none;
+  cursor: pointer;
+  background: #132a3a;
+  color: #5cd6ff;
+  border: 1px solid #5cd6ff;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+}
+.bug-panel > summary::-webkit-details-marker { display: none; }
+.bug-panel[open] > summary { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.bug-panel[open] .contact-form { margin-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
