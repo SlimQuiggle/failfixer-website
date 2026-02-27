@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ – FailFixer</title>
-  <meta name="description" content="Frequently asked questions about FailFixer — the desktop tool that resumes failed 3D prints.">
+  <meta name="description" content="Frequently asked questions about FailFixer — the desktop tool with in-air resume and build-plate restart recovery modes.">
   <link rel="icon" href="assets/img/logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,14 +50,14 @@
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">What is FailFixer?</button>
           <div class="faq-answer">
-            <p>FailFixer is a lightweight Windows desktop application that generates safe resume G-code for failed FDM 3D prints. Instead of reprinting from scratch, you tell FailFixer which layer the print failed on, and it creates a new G-code file that picks up exactly where the failure occurred.</p>
+            <p>FailFixer is a lightweight Windows desktop application that generates safe recovery G-code for failed FDM 3D prints. You can either resume in-air at the failure point, or restart from the build plate to reprint only the missing section for a glue-later repair.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">How does FailFixer work?</button>
           <div class="faq-answer">
-            <p>FailFixer parses your original .gcode file, identifies all layers, and strips everything below your selected resume layer. It then injects a safe resume header that handles temperatures, positioning, and extruder priming — so your printer picks up cleanly without crashing into the existing part.</p>
+            <p>FailFixer parses your original .gcode file, identifies all layers, and builds a recovery file for your chosen mode. In Resume In-Air mode, it starts at your selected fail layer. In Restart from Build Plate mode, it reprints the missing upper section from the plate so you can glue it to the saved lower section. Both modes inject a safe header for temperatures, positioning, and extruder priming.</p>
           </div>
         </div>
 
@@ -83,9 +83,16 @@
         </div>
 
         <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">When should I use each recovery mode?</button>
+          <div class="faq-answer">
+            <p>Use <strong>Resume In-Air</strong> when the failed print is still firmly attached and physically stable enough to continue directly at the fail point. Use <strong>Restart from Build Plate</strong> when continuing in-air is too risky (weak adhesion, messy fail zone, shifted part) and you'd rather print the missing top section cleanly, then glue it onto the saved lower section.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
           <button class="faq-question" aria-expanded="false">Will it crash the nozzle into my print?</button>
           <div class="faq-answer">
-            <p>No. FailFixer is designed with safety as a priority. It never auto-homes the Z axis. It always lifts Z to a safe height before any XY travel, and only homes X and Y. The default safe lift is 10mm above the resume height, which you can adjust in the settings.</p>
+            <p>No. FailFixer is designed with safety as a priority. It never auto-homes the Z axis. It always lifts Z to a safe height before any XY travel, and only homes X and Y. The default safe lift is 10mm above the recovery start height, which you can adjust in the settings.</p>
           </div>
         </div>
 
@@ -162,7 +169,7 @@
         <div class="faq-item">
           <button class="faq-question" aria-expanded="false">What if my print failed mid-layer?</button>
           <div class="faq-answer">
-            <p>FailFixer resumes from the beginning of the selected layer. If the failure happened partway through a layer, that layer will be reprinted in full. This ensures consistent bonding and avoids gaps from partial layers.</p>
+            <p>FailFixer starts from the beginning of the selected layer. If the failure happened partway through a layer, that layer will be reprinted in full in either mode. This gives you cleaner layer bonding and avoids gaps from partial layers.</p>
           </div>
         </div>
 

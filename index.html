@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FailFixer – Resume Failed 3D Prints in Seconds</title>
-  <meta name="description" content="FailFixer generates safe resume G-code for failed FDM 3D prints. Pick your layer, get a file, finish your print. $4.99 one-time.">
+  <title>FailFixer – Recover Failed 3D Prints Your Way</title>
+  <meta name="description" content="FailFixer generates safe recovery G-code for failed FDM prints. Resume in-air at the fail point or restart from the build plate for glue-later workflow.">
   <link rel="canonical" href="https://failfixer.com/">
 
   <!-- Open Graph / Social Preview -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="FailFixer – Resume Failed 3D Prints in Seconds">
-  <meta property="og:description" content="Recover failed 3D prints with a safe resume G-code file. One-time $4.99 purchase.">
+  <meta property="og:title" content="FailFixer – Recover Failed 3D Prints Your Way">
+  <meta property="og:description" content="Resume in-air at the fail point or restart from the build plate for a glue-later save.">
   <meta property="og:url" content="https://failfixer.com/">
   <meta property="og:site_name" content="FailFixer">
   <meta property="og:image" content="https://failfixer.com/assets/img/interface-screenshot.jpg">
@@ -18,8 +18,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="FailFixer – Resume Failed 3D Prints in Seconds">
-  <meta name="twitter:description" content="Recover failed 3D prints with a safe resume G-code file. One-time $4.99 purchase.">
+  <meta name="twitter:title" content="FailFixer – Recover Failed 3D Prints Your Way">
+  <meta name="twitter:description" content="Use in-air resume at fail point or a build-plate restart for glue-later workflow.">
   <meta name="twitter:image" content="https://failfixer.com/assets/img/interface-screenshot.jpg">
 
   <link rel="icon" href="assets/img/logo.png" type="image/png">
@@ -55,8 +55,8 @@
   <section class="hero">
     <div class="container">
       <div class="hero-badge">🧪 BETA · Early Access · For FDM 3D Printer Owners</div>
-      <h1>Your Print Failed at 80%.<br><em>Don't Start Over.</em></h1>
-      <p class="hero-sub">FailFixer generates safe resume G-code so you can finish your print from exactly where it failed — no wasted filament, no wasted time.</p>
+      <h1>Your Print Failed at 80%.<br><em>Recover It Your Way.</em></h1>
+      <p class="hero-sub">FailFixer gives you two recovery modes: resume in-air at the fail point, or restart from the build plate when you want to glue the saved top section later.</p>
       <div class="hero-ctas">
         <a href="#" class="btn btn-primary btn-lg" data-cta>Buy for $4.99</a>
         <a href="#how-it-works" class="btn btn-outline btn-lg">See How It Works</a>
@@ -96,16 +96,18 @@
     <div class="container">
       <div class="text-center">
         <p class="section-label">The Solution</p>
-        <h2 class="section-title">FailFixer: Resume Any Failed Print</h2>
-        <p class="section-subtitle">A lightweight desktop tool that generates safe resume G-code from your original file. No printer mods. No firmware changes.</p>
+        <h2 class="section-title">FailFixer: Recover Any Failed Print</h2>
+        <p class="section-subtitle">A lightweight desktop tool that generates safe recovery G-code from your original file. No printer mods. No firmware changes.</p>
       </div>
       <div class="solution-content">
         <div class="solution-text">
           <h3>What It Does</h3>
-          <p>FailFixer reads your original G-code, lets you pick the exact layer or Z-height where the failure occurred, and generates a new file that safely resumes from that point.</p>
+          <p>FailFixer reads your original G-code, lets you pick the exact failure layer or Z-height, and generates the right recovery file for your situation.</p>
           <ul>
+            <li><strong>Resume In-Air Mode:</strong> continue directly at the failure point when the existing part is stable and still well-adhered</li>
+            <li><strong>Restart from Build Plate Mode:</strong> reprint only the missing upper section so you can glue it onto the saved lower section later</li>
             <li>Preserves temperature, extrusion mode, and unit settings</li>
-            <li>Injects a safe resume header (no Z-homing collisions)</li>
+            <li>Injects a safe recovery header (no Z-homing collisions)</li>
             <li>Supports absolute and relative extrusion modes</li>
             <li>Handles files up to 50MB in under 3 seconds</li>
             <li>Deterministic: same inputs always produce the same output</li>
@@ -140,7 +142,7 @@ G92 E0
     <div class="container text-center">
       <p class="section-label">How It Works</p>
       <h2 class="section-title">Three Steps. Done.</h2>
-      <p class="section-subtitle">No command line. No G-code knowledge required. Just point, click, and print.</p>
+      <p class="section-subtitle">No command line. No G-code gymnastics. Pick your recovery mode, generate, and print.</p>
       <div class="steps">
         <div class="step">
           <div class="step-number">1</div>
@@ -149,13 +151,13 @@ G92 E0
         </div>
         <div class="step">
           <div class="step-number">2</div>
-          <h3>Pick the Resume Layer</h3>
-          <p>Enter the layer number or measure the Z-height on your failed print. Optionally adjust the Z offset.</p>
+          <h3>Choose Mode + Recovery Point</h3>
+          <p>Select Resume In-Air for direct continuation, or Restart from Build Plate for glue-later repairs. Then set your layer/Z and optional offset.</p>
         </div>
         <div class="step">
           <div class="step-number">3</div>
-          <h3>Generate &amp; Print</h3>
-          <p>FailFixer creates a safe resume file. Send it to your printer via SD card or USB and finish the job.</p>
+          <h3>Generate &amp; Recover</h3>
+          <p>FailFixer creates a safe recovery file. Print the output and either continue the part in place or bond the reprinted top section afterward.</p>
         </div>
       </div>
 
@@ -235,8 +237,8 @@ G92 E0
         <p class="pricing-period">One-time purchase · Lifetime updates for V1</p>
         <ul class="pricing-features">
           <li>Windows desktop application (.exe)</li>
-          <li>Resume from any layer or Z-height</li>
-          <li>Safe G-code header injection</li>
+          <li>Dual recovery modes: Resume In-Air or Restart from Build Plate</li>
+          <li>Safe recovery header injection</li>
           <li>License valid forever (no subscription)</li>
           <li>Install on up to 5 computers per license</li>
           <li>Parses 50MB+ files in seconds</li>
