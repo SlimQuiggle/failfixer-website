@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FailFixer – Resume Failed 3D Prints in Seconds</title>
+  <meta name="description" content="FailFixer generates safe resume G-code for failed FDM 3D prints. Pick your layer, get a file, finish your print. $5 one-time.">
+  <link rel="icon" href="assets/img/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo.png" alt="FailFixer logo">
+        Fail<span>Fixer</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="#problem">Problem</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="#pricing" class="btn btn-primary" data-cta>Buy for $5</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">🛠️ For FDM 3D Printer Owners</div>
+      <h1>Your Print Failed at 80%.<br><em>Don't Start Over.</em></h1>
+      <p class="hero-sub">FailFixer generates safe resume G-code so you can finish your print from exactly where it failed — no wasted filament, no wasted time.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn btn-primary btn-lg" data-cta>Buy for $5</a>
+        <a href="#how-it-works" class="btn btn-outline btn-lg">See How It Works</a>
+      </div>
+      <p class="hero-note">One-time purchase · Windows desktop app · Works offline</p>
+    </div>
+  </section>
+
+  <!-- ═══ PROBLEM ═══ -->
+  <section id="problem">
+    <div class="container text-center">
+      <p class="section-label">The Problem</p>
+      <h2 class="section-title">3D Print Failures Are Expensive</h2>
+      <p class="section-subtitle">Power outages, filament tangles, firmware crashes — any of these can kill a 12-hour print. Without a resume option, you're stuck.</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-icon">💸</div>
+          <h3>Wasted Filament</h3>
+          <p>Restarting a print from scratch means burning through filament you already used. A failed 300g print costs real money.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">⏰</div>
+          <h3>Wasted Time</h3>
+          <p>That 18-hour print that failed at layer 200? Without resume, you're waiting another 18 hours for a re-do.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">😤</div>
+          <h3>No Easy Fix</h3>
+          <p>Manually editing G-code to resume is tedious, error-prone, and risky. One wrong move and you crash the nozzle into the part.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SOLUTION ═══ -->
+  <section id="solution">
+    <div class="container">
+      <div class="text-center">
+        <p class="section-label">The Solution</p>
+        <h2 class="section-title">FailFixer: Resume Any Failed Print</h2>
+        <p class="section-subtitle">A lightweight desktop tool that generates safe resume G-code from your original file. No printer mods. No firmware changes.</p>
+      </div>
+      <div class="solution-content">
+        <div class="solution-text">
+          <h3>What It Does</h3>
+          <p>FailFixer reads your original G-code, lets you pick the exact layer or Z-height where the failure occurred, and generates a new file that safely resumes from that point.</p>
+          <ul>
+            <li>Preserves temperature, extrusion mode, and unit settings</li>
+            <li>Injects a safe resume header (no Z-homing collisions)</li>
+            <li>Supports absolute and relative extrusion modes</li>
+            <li>Handles files up to 50MB in under 3 seconds</li>
+            <li>Deterministic: same inputs always produce the same output</li>
+            <li>Works 100% offline — no internet required</li>
+          </ul>
+        </div>
+        <div class="solution-visual">
+          <pre><code><span class="cm">; --- FailFixer Resume Header ---</span>
+<span class="cm">; Resume Layer: 142</span>
+<span class="cm">; Resume Z: 28.40</span>
+<span class="cm">; Offset: 0.00</span>
+
+<span class="hl">M140 S60</span>       <span class="cm">; Bed temp</span>
+<span class="hl">M104 S210</span>      <span class="cm">; Nozzle temp</span>
+<span class="hl">M190 S60</span>       <span class="cm">; Wait bed</span>
+<span class="hl">M109 S210</span>      <span class="cm">; Wait nozzle</span>
+
+G21            <span class="cm">; Millimeters</span>
+G90            <span class="cm">; Absolute pos</span>
+<span class="hl">G28 X Y</span>        <span class="cm">; Home XY only</span>
+G1 Z10         <span class="cm">; Safe lift</span>
+G92 E0
+
+<span class="cm">; --- Your print continues... ---</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW IT WORKS ═══ -->
+  <section id="how-it-works">
+    <div class="container text-center">
+      <p class="section-label">How It Works</p>
+      <h2 class="section-title">Three Steps. Done.</h2>
+      <p class="section-subtitle">No command line. No G-code knowledge required. Just point, click, and print.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Load Your G-code</h3>
+          <p>Open the original .gcode file from your slicer. FailFixer parses all layers in seconds.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Pick the Resume Layer</h3>
+          <p>Enter the layer number or measure the Z-height on your failed print. Optionally adjust the Z offset.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Generate &amp; Print</h3>
+          <p>FailFixer creates a safe resume file. Send it to your printer via SD card or USB and finish the job.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHO IT'S FOR ═══ -->
+  <section id="who">
+    <div class="container text-center">
+      <p class="section-label">Who It's For</p>
+      <h2 class="section-title">Built for Real Printer Operators</h2>
+      <p class="section-subtitle">Whether you print for fun or profit, failed prints hurt. FailFixer is built for anyone running FDM printers.</p>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-icon">🏠</div>
+          <h3>Hobbyists</h3>
+          <p>Stop losing weekend prints to random failures. Save your filament and your sanity.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🏭</div>
+          <h3>Print Farms</h3>
+          <p>When a 20-hour production print fails at 90%, the cost is real. FailFixer pays for itself on the first save.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🎓</div>
+          <h3>Makers &amp; Educators</h3>
+          <p>Schools, makerspaces, and labs — where printers run all day and failures are inevitable.</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🔧</div>
+          <h3>Tinkerers</h3>
+          <p>You know your way around G-code but don't want to manually edit it every time something goes wrong.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PRICING ═══ -->
+  <section id="pricing">
+    <div class="container text-center">
+      <p class="section-label">Pricing</p>
+      <h2 class="section-title">One Price. No Subscriptions.</h2>
+      <p class="section-subtitle">Pay once, use forever. FailFixer is a tool, not a service.</p>
+      <div class="pricing-card">
+        <div class="pricing-badge">Launch Price</div>
+        <div class="pricing-amount"><sup>$</sup>5</div>
+        <p class="pricing-period">One-time purchase · Lifetime updates for V1</p>
+        <ul class="pricing-features">
+          <li>Windows desktop application (.exe)</li>
+          <li>Resume from any layer or Z-height</li>
+          <li>Safe G-code header injection</li>
+          <li>Works offline — no account needed</li>
+          <li>Parses 50MB+ files in seconds</li>
+          <li>Marlin firmware support</li>
+        </ul>
+        <a href="#" class="btn btn-primary btn-lg" data-cta style="width:100%;justify-content:center;">Buy for $5</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL CTA ═══ -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Stop Reprinting. Start Resuming.</h2>
+      <p>FailFixer saves you time, filament, and frustration — for less than the cost of a coffee.</p>
+      <a href="#" class="btn btn-primary btn-lg" data-cta>Buy FailFixer for $5</a>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+      </ul>
+      <p class="footer-copy">&copy; 2026 FailFixer. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

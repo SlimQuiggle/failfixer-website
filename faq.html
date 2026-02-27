@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ – FailFixer</title>
+  <meta name="description" content="Frequently asked questions about FailFixer — the desktop tool that resumes failed 3D prints.">
+  <link rel="icon" href="assets/img/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo.png" alt="FailFixer logo">
+        Fail<span>Fixer</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="index.html#problem">Problem</a></li>
+        <li><a href="index.html#how-it-works">How It Works</a></li>
+        <li><a href="index.html#pricing">Pricing</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="index.html#pricing" class="btn btn-primary" data-cta>Buy for $5</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ═══ PAGE HEADER ═══ -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Frequently Asked Questions</h1>
+      <p>Everything you need to know about FailFixer. Can't find your answer? Reach out and we'll help.</p>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ LIST ═══ -->
+  <section>
+    <div class="container">
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What is FailFixer?</button>
+          <div class="faq-answer">
+            <p>FailFixer is a lightweight Windows desktop application that generates safe resume G-code for failed FDM 3D prints. Instead of reprinting from scratch, you tell FailFixer which layer the print failed on, and it creates a new G-code file that picks up exactly where the failure occurred.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">How does FailFixer work?</button>
+          <div class="faq-answer">
+            <p>FailFixer parses your original .gcode file, identifies all layers, and strips everything below your selected resume layer. It then injects a safe resume header that handles temperatures, positioning, and extruder priming — so your printer picks up cleanly without crashing into the existing part.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What printers does it support?</button>
+          <div class="faq-answer">
+            <p>FailFixer V1 supports any FDM printer running Marlin-compatible firmware. This covers the vast majority of consumer and prosumer printers including Creality, Prusa, Anycubic, Artillery, and many more. Klipper and other firmware support is planned for future versions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Does it work with any slicer?</button>
+          <div class="faq-answer">
+            <p>Yes. FailFixer works with G-code from any slicer — Cura, PrusaSlicer, SuperSlicer, OrcaSlicer, Simplify3D, and others. It reads standard G-code layer markers and falls back to Z-height detection when markers aren't present.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">How do I know which layer the print failed on?</button>
+          <div class="faq-answer">
+            <p>You have two options: (1) If your printer displays the current layer, note it down. (2) Measure the height of the printed part with calipers and enter the Z-height in millimeters. FailFixer will map it to the nearest layer. You can also apply a Z-offset adjustment if needed.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Will it crash the nozzle into my print?</button>
+          <div class="faq-answer">
+            <p>No. FailFixer is designed with safety as a priority. It never auto-homes the Z axis. It always lifts Z to a safe height before any XY travel, and only homes X and Y. The default safe lift is 10mm above the resume height, which you can adjust in the settings.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Does FailFixer connect to my printer?</button>
+          <div class="faq-answer">
+            <p>No. FailFixer V1 is file-based only. It generates a new .gcode file that you transfer to your printer via SD card, USB drive, or however you normally send files. There is no USB/serial, OctoPrint, or network connection in V1.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Does it require an internet connection?</button>
+          <div class="faq-answer">
+            <p>No. FailFixer works 100% offline. There are no accounts, no cloud services, no telemetry, and no phone-home features. Everything runs locally on your machine.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What operating systems are supported?</button>
+          <div class="faq-answer">
+            <p>FailFixer V1 is a Windows desktop application packaged as a standalone .exe file. No Python installation is required. Mac and Linux support may come in future versions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">How large of a G-code file can it handle?</button>
+          <div class="faq-answer">
+            <p>FailFixer can parse G-code files up to 50MB in under 3 seconds. Most consumer print files are well under this limit. Resume file generation takes under 1 second.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Is there a subscription?</button>
+          <div class="faq-answer">
+            <p>No. FailFixer is a one-time $5 purchase. You get lifetime access to all V1 updates. No recurring fees, no upsells, no premium tiers.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Can I get a refund?</button>
+          <div class="faq-answer">
+            <p>Since FailFixer is a digital product, refunds are handled on a case-by-case basis. If the software doesn't work as described, reach out and we'll make it right.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">Does it support multi-extruder or multi-material prints?</button>
+          <div class="faq-answer">
+            <p>Not in V1. FailFixer V1 is designed for single-extruder FDM printers. Multi-extruder and multi-material support is a potential feature for future versions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">What if my print failed mid-layer?</button>
+          <div class="faq-answer">
+            <p>FailFixer resumes from the beginning of the selected layer. If the failure happened partway through a layer, that layer will be reprinted in full. This ensures consistent bonding and avoids gaps from partial layers.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Ready to Save Your Next Print?</h2>
+      <p>Get FailFixer and stop wasting filament on reprints.</p>
+      <a href="#" class="btn btn-primary btn-lg" data-cta>Buy FailFixer for $5</a>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+      </ul>
+      <p class="footer-copy">&copy; 2026 FailFixer. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
