@@ -174,6 +174,16 @@ p  { margin-bottom: 1rem; }
 .nav-links a { color: var(--ff-text-muted); font-weight: 500; font-size: 0.95rem; }
 .nav-links a:hover { color: var(--ff-white); }
 .nav-links .btn { padding: 10px 22px; font-size: 0.9rem; }
+.nav-links .btn-primary {
+  color: #fff !important;
+  background: #FF6E00;
+  border: 1px solid #FF6E00;
+}
+.nav-links .btn-primary:hover {
+  color: #fff !important;
+  background: #FF8A2D;
+  border-color: #FF8A2D;
+}
 .nav-links .btn-bug {
   margin-left: 34px;
   padding: 8px 14px;
