@@ -86,11 +86,19 @@
     });
   }
 
+  function wireBugReportMeta() {
+    var browserField = document.getElementById('bug-browser-info');
+    var timeField = document.getElementById('bug-time');
+    if (browserField) browserField.value = navigator.userAgent || 'unknown';
+    if (timeField) timeField.value = new Date().toISOString();
+  }
+
   /* ── Init ── */
   document.addEventListener('DOMContentLoaded', function () {
     wireCTAs();
     wireNav();
     wireAccordion();
     wireSmoothScroll();
+    wireBugReportMeta();
   });
 })();

@@ -452,6 +452,7 @@ section:nth-child(even) { background: var(--ff-surface); }
   border-radius: 14px;
   padding: 24px;
 }
+.form-stack { margin-top: 16px; }
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

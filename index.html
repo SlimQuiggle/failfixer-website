@@ -271,10 +271,34 @@ G92 E0
           <input type="text" name="name" placeholder="Your name" required>
           <input type="email" name="email" placeholder="Your email" required>
         </div>
-        <input type="text" name="topic" placeholder="Topic (activation, resume issue, refund, etc.)" required>
-        <textarea name="message" rows="5" placeholder="Tell us what happened and how we can help..." required></textarea>
+        <input type="text" name="topic" placeholder="Topic (activation, refund, license, etc.)" required>
+        <textarea name="message" rows="4" placeholder="Tell us what happened and how we can help..." required></textarea>
         <button type="submit" class="btn btn-primary">Send Message</button>
       </form>
+
+      <form class="contact-form form-stack" id="bug-report-form" action="https://formsubmit.co/support@failfixer.com" method="POST">
+        <h3 style="margin-bottom:10px;">🐞 Report a Bug</h3>
+        <input type="hidden" name="_subject" value="FailFixer Bug Report">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="source_page" value="https://failfixer.com/">
+        <input type="hidden" id="bug-browser-info" name="browser_info" value="">
+        <input type="hidden" id="bug-time" name="submitted_at_utc" value="">
+
+        <div class="contact-grid">
+          <input type="email" name="email" placeholder="Your email" required>
+          <input type="text" name="app_version" placeholder="App version (example: v1.0.0-beta)" required>
+        </div>
+        <div class="contact-grid">
+          <input type="text" name="firmware" placeholder="Firmware (Marlin / Klipper / RepRapFirmware)">
+          <input type="text" name="os" placeholder="OS (Windows 10/11)">
+        </div>
+        <textarea name="steps_to_reproduce" rows="4" placeholder="Steps to reproduce (1,2,3...)" required></textarea>
+        <textarea name="expected_result" rows="2" placeholder="What you expected to happen" required></textarea>
+        <textarea name="actual_result" rows="3" placeholder="What actually happened (error text, behavior, etc.)" required></textarea>
+        <button type="submit" class="btn btn-primary">Submit Bug Report</button>
+      </form>
+
       <p class="contact-note">If the form shows "activation required", check <strong>support@failfixer.com</strong> inbox for FormSubmit's one-time activation email and click confirm. You can always email us directly at <a href="mailto:support@failfixer.com">support@failfixer.com</a>.</p>
     </div>
   </section>
