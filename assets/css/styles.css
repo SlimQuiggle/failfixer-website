@@ -6,9 +6,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --ff-primary:    #FF7A1A;   /* FailFixer Orange */
-  --ff-primary-dk: #E86A00;
-  --ff-primary-lt: #FFA04D;
+  --ff-primary:    #FF6E00;   /* FailFixer Orange */
+  --ff-primary-dk: #E45F00;
+  --ff-primary-lt: #FF9A4A;
   --ff-dark:       #1A1A2E;
   --ff-dark-2:     #16213E;
   --ff-dark-3:     #0F3460;
@@ -175,7 +175,9 @@ p  { margin-bottom: 1rem; }
 .nav-links a:hover { color: var(--ff-white); }
 .nav-links .btn { padding: 10px 22px; font-size: 0.9rem; }
 .nav-links .btn-bug {
-  margin-left: 18px;
+  margin-left: 34px;
+  padding: 8px 14px;
+  font-size: 0.82rem;
   background: #8E1E1E;
   color: #fff !important;
   border: 1px solid #B22B2B;
