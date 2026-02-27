@@ -474,6 +474,12 @@ section:nth-child(even) { background: var(--ff-surface); }
   border-color: var(--ff-primary-lt);
 }
 .contact-form button { margin-top: 4px; }
+.contact-note {
+  margin-top: 12px;
+  color: var(--ff-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
 
 /* ═══════════════════════════════════════════
    FOOTER
