@@ -335,6 +335,27 @@ section:nth-child(even) { background: var(--ff-surface); }
 .step h3 { margin-bottom: 10px; }
 .step p { color: var(--ff-text-muted); font-size: 0.95rem; }
 
+.app-screenshot {
+  margin: 48px auto 0;
+  max-width: 420px;
+  background: var(--ff-surface-2);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: var(--ff-shadow);
+}
+.app-screenshot img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.app-screenshot figcaption {
+  margin-top: 10px;
+  color: var(--ff-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
 /* ── Who it's for ── */
 .audience-grid {
   display: grid;
