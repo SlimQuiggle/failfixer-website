@@ -158,30 +158,71 @@
     var fpHash = await sha256Hex(fpSource);
     setField('meta-client-fingerprint', fpHash);
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
       var honeypot = form.querySelector('input[name="company_name"]');
       if (honeypot && honeypot.value.trim() !== '') {
-        e.preventDefault();
         showToast('Submission blocked. Please try again.');
         return;
       }
 
       var elapsedSec = (Date.now() - renderedAt) / 1000;
       if (elapsedSec < 4) {
-        e.preventDefault();
         showToast('Please take a moment to review the form before submitting.');
         return;
       }
 
       var termsCheck = document.getElementById('beta-terms-accept');
       if (termsCheck && !termsCheck.checked) {
-        e.preventDefault();
         showToast('You must accept the beta tester terms to apply.');
         return;
       }
 
       setField('beta-submitted-at', new Date().toISOString());
       setField('beta-seconds-elapsed', elapsedSec.toFixed(1));
+
+      if (!form.reportValidity()) {
+        return;
+      }
+
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.dataset.originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Submitting...';
+      }
+
+      try {
+        var formData = new FormData(form);
+        var payload = {};
+        formData.forEach(function (value, key) {
+          payload[key] = value;
+        });
+
+        var response = await fetch(form.action, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error('Email delivery failed.');
+        }
+
+        form.reset();
+        setField('beta-rendered-at', new Date().toISOString());
+        showToast('Application submitted! We\'ll review and follow up by email.');
+      } catch (err) {
+        showToast('Submission failed. Please try again in a minute or email betatester@failfixer.com.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitBtn.dataset.originalText || 'Apply for Beta Access';
+        }
+      }
     });
   }
 

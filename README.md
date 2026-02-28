@@ -35,19 +35,28 @@ window.FAILFIXER_GUMROAD_URL = 'https://failfixer.lemonsqueezy.com/checkout/buy/
 
 If the URL is empty (`''`), all "Buy" buttons will show a tooltip saying "Purchase link coming soon!" and clicking them shows a toast notification.
 
-### Setting the Beta Form Endpoint
+### Beta Form Email Delivery (Resend)
 
-Set the Formspree (or compatible) endpoint used by `beta.html`:
+The site now uses a Vercel Serverless endpoint at `/api/beta-application` that forwards submissions to Resend.
+
+Set these Vercel environment variables:
+
+- `RESEND_API_KEY` (required)
+- `BETA_TO_EMAIL` (optional, default: `betatester@failfixer.com`)
+- `BETA_FROM_EMAIL` (optional, default: `betatester@failfixer.com`)
+- `BETA_REPLY_TO_EMAIL` (optional, default: `betatester@failfixer.com`)
+
+`assets/js/config.js` default endpoint:
 
 ```js
-window.FAILFIXER_BETA_FORM_ENDPOINT = 'https://formspree.io/f/abcde123';
+window.FAILFIXER_BETA_FORM_ENDPOINT = '/api/beta-application';
 ```
 
 The beta form includes:
 - required terms-acceptance checkboxes
 - honeypot + minimum time-to-submit anti-bot friction
 - browser/device metadata capture + generated SHA-256 client hash
-- explicit note that IP is logged by backend/hosting providers, not directly by browser JS
+- server-side validation + email forwarding via Resend
 
 ## Local Development
 
