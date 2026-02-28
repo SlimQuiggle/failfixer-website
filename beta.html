@@ -54,7 +54,7 @@
           </ul>
                   </div>
 
-        <form class="contact-form beta-form" id="beta-application-form" method="POST" action="https://formspree.io/f/your-form-id">
+        <form class="contact-form beta-form" id="beta-application-form" method="POST" action="/api/beta-application">
           <h2>Beta application</h2>
           <p class="beta-form-note">Complete this form and accept the beta terms below. We review applications manually and follow up by email.</p>
 
@@ -88,7 +88,7 @@
           </div>
 
           <div class="contact-grid">
-            <input type="text" name="full_name" placeholder="Full name" minlength="2" required>
+            <input type="text" name="full_name" placeholder="Full name" required>
             <input type="email" name="email" placeholder="Best email for invite" required>
           </div>
 
@@ -113,8 +113,8 @@
             </select>
           </div>
 
-          <textarea name="why_beta" rows="3" placeholder="Why do you want to join beta?" minlength="20" required></textarea>
-          <textarea name="test_commitment" rows="3" placeholder="How quickly can you test builds and report results?" minlength="20" required></textarea>
+          <textarea name="why_beta" rows="3" placeholder="Why do you want to join beta?" required></textarea>
+          <textarea name="test_commitment" rows="3" placeholder="How quickly can you test builds and report results?" required></textarea>
 
           <div class="terms-box">
             <p><strong>Beta Terms Acceptance (required):</strong> I understand this is pre-release software and I agree not to resell, redistribute, sublicense, publish, crack, reverse engineer, decompile, disassemble, or otherwise misuse the beta build, license codes, or download links. I will use the beta only for my own testing, provide honest feedback, and report issues responsibly.</p>

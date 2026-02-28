@@ -57,6 +57,8 @@ The beta form includes:
 - honeypot + minimum time-to-submit anti-bot friction
 - browser/device metadata capture + generated SHA-256 client hash
 - server-side validation + email forwarding via Resend
+- best-effort request IP/header capture in the notification email
+- JSON audit attachment per submission (`beta-application-*.json`) for file-based archive in your mailbox
 
 ## Local Development
 

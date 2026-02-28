@@ -26,12 +26,27 @@ function collect(data) {
   return out;
 }
 
-function renderHtml(body) {
+function getRequestMeta(req) {
+  const forwardedFor = req.headers.get('x-forwarded-for') || '';
+  const realIp = req.headers.get('x-real-ip') || '';
+  const cfConnectingIp = req.headers.get('cf-connecting-ip') || '';
+  const ip = (forwardedFor.split(',')[0] || realIp || cfConnectingIp || '').trim() || 'unknown';
+
+  return {
+    ip,
+    forwardedFor: forwardedFor || 'unknown',
+    realIp: realIp || 'unknown',
+    cfConnectingIp: cfConnectingIp || 'unknown',
+    requestId: req.headers.get('x-vercel-id') || req.headers.get('x-request-id') || 'unknown',
+    vercelUrl: req.headers.get('x-forwarded-host') || process.env.VERCEL_URL || 'unknown',
+    serverTimeIso: new Date().toISOString()
+  };
+}
+
+function renderHtml(body, meta) {
   const fields = [
     ['Full name', body.full_name],
     ['Email', body.email],
-    ['Country / region', body.country],
-    ['Claimed timezone', body.timezone_claimed],
     ['Printer model', body.printer_model],
     ['Firmware', body.firmware],
     ['Slicer', body.slicer],
@@ -40,11 +55,11 @@ function renderHtml(body) {
     ['Test commitment', body.test_commitment],
     ['Accepted terms', body.beta_terms_accept],
     ['Risk acknowledged', body.beta_risk_ack],
-    ['Submitted at (UTC)', body.submitted_at_utc],
+    ['Submitted at (client UTC)', body.submitted_at_utc],
+    ['Submitted at (server UTC)', meta.serverTimeIso],
     ['Form seconds elapsed', body.beta_form_seconds_elapsed],
     ['Source page', body.source_page],
     ['Referrer', body.meta_referrer],
-    ['Timezone (browser)', body.meta_timezone],
     ['Platform', body.meta_platform],
     ['Language', body.meta_language],
     ['Languages', body.meta_languages],
@@ -58,7 +73,13 @@ function renderHtml(body) {
     ['Cookie enabled', body.meta_cookie_enabled],
     ['Do Not Track', body.meta_do_not_track],
     ['Page URL', body.meta_page_url],
-    ['Client fingerprint (SHA-256)', body.meta_client_fingerprint_sha256]
+    ['Client fingerprint (SHA-256)', body.meta_client_fingerprint_sha256],
+    ['IP (best effort)', meta.ip],
+    ['Forwarded For', meta.forwardedFor],
+    ['Real IP', meta.realIp],
+    ['CF Connecting IP', meta.cfConnectingIp],
+    ['Request ID', meta.requestId],
+    ['Vercel Deployment URL', meta.vercelUrl]
   ];
 
   const rows = fields
@@ -97,6 +118,7 @@ export default async function handler(req) {
   }
 
   const body = collect(raw);
+  const meta = getRequestMeta(req);
 
   if (body.company_name) {
     return json(200, { ok: true });
@@ -129,27 +151,52 @@ export default async function handler(req) {
 
   const subject = `FailFixer Beta Application: ${body.full_name} <${email}>`;
 
+  const auditRecord = {
+    server_received_at_utc: meta.serverTimeIso,
+    ip_best_effort: meta.ip,
+    forwarded_for: meta.forwardedFor,
+    real_ip: meta.realIp,
+    cf_connecting_ip: meta.cfConnectingIp,
+    request_id: meta.requestId,
+    vercel_url: meta.vercelUrl,
+    payload: body
+  };
+
+  const auditJson = JSON.stringify(auditRecord, null, 2);
+  const fileSafeName = String(body.full_name || 'unknown')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '') || 'unknown';
+  const attachmentName = `beta-application-${fileSafeName}-${Date.now()}.json`;
+
   const resendPayload = {
     from: fromAddress,
     to: [toAddress],
     reply_to: replyToAddress,
     subject,
-    html: renderHtml(body),
+    html: renderHtml(body, meta),
     text: [
       'New FailFixer beta application',
       '',
       `Name: ${body.full_name}`,
       `Email: ${email}`,
-      `Country/Region: ${body.country}`,
       `Printer: ${body.printer_model}`,
       `Firmware: ${body.firmware}`,
       `Slicer: ${body.slicer}`,
       `Frequency: ${body.print_frequency}`,
+      `IP (best effort): ${meta.ip}`,
+      `Server Time (UTC): ${meta.serverTimeIso}`,
       '',
       `Why beta: ${body.why_beta}`,
       '',
       `Test commitment: ${body.test_commitment}`
-    ].join('\n')
+    ].join('\n'),
+    attachments: [
+      {
+        filename: attachmentName,
+        content: Buffer.from(auditJson).toString('base64')
+      }
+    ]
   };
 
   const resendRes = await fetch(RESEND_API_URL, {
