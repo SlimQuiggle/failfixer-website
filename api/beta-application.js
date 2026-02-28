@@ -198,14 +198,25 @@ export default async function handler(req) {
     ]
   };
 
-  const resendRes = await fetch(RESEND_API_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(resendPayload)
-  });
+  let resendRes;
+  try {
+    const resendTimeout = AbortSignal.timeout(15000);
+    resendRes = await fetch(RESEND_API_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(resendPayload),
+      signal: resendTimeout
+    });
+  } catch (err) {
+    const isTimeout = err && (err.name === 'TimeoutError' || err.name === 'AbortError');
+    return json(504, {
+      ok: false,
+      error: isTimeout ? 'Email service timed out' : 'Email service request failed'
+    });
+  }
 
   if (!resendRes.ok) {
     const errText = await resendRes.text();

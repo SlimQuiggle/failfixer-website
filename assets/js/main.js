@@ -200,23 +200,39 @@
           payload[key] = value;
         });
 
-        var response = await fetch(form.action, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function () { controller.abort(); }, 15000);
+
+        var response;
+        try {
+          response = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload),
+            signal: controller.signal
+          });
+        } finally {
+          clearTimeout(timeoutId);
+        }
 
         if (!response.ok) {
-          throw new Error('Email delivery failed.');
+          var errBody = null;
+          try { errBody = await response.json(); } catch (_) { }
+          throw new Error((errBody && errBody.error) || 'Email delivery failed.');
         }
 
         form.reset();
         setField('beta-rendered-at', new Date().toISOString());
         showToast('Application submitted! We\'ll review and follow up by email.');
       } catch (err) {
-        showToast('Submission failed. Please try again in a minute or email betatester@failfixer.com.');
+        var timeoutMsg = err && err.name === 'AbortError';
+        if (timeoutMsg) {
+          showToast('Submission timed out. Please try again in a moment.');
+        } else {
+          showToast('Submission failed. Please try again in a minute or email betatester@failfixer.com.');
+        }
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
