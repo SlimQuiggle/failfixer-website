@@ -127,7 +127,6 @@ export default async function handler(req) {
   const required = [
     'full_name',
     'email',
-    'country',
     'printer_model',
     'firmware',
     'slicer',
