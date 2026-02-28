@@ -8,6 +8,7 @@ Static marketing website for FailFixer — the desktop tool that recovers failed
 failfixer-website/
 ├── index.html          # Home / landing page
 ├── faq.html            # Frequently asked questions
+├── beta.html           # Beta tester application + redemption flow
 ├── terms.html          # Terms of Service
 ├── privacy.html        # Privacy Policy
 ├── README.md           # This file
@@ -24,15 +25,29 @@ failfixer-website/
 
 ## Configuration
 
-### Setting the Gumroad Purchase Link
+### Setting the Lemon Squeezy Purchase Link
 
-Edit `assets/js/config.js` and set your Gumroad product URL:
+Edit `assets/js/config.js` and set your checkout URL:
 
 ```js
-window.FAILFIXER_GUMROAD_URL = 'https://yourname.gumroad.com/l/failfixer';
+window.FAILFIXER_GUMROAD_URL = 'https://failfixer.lemonsqueezy.com/checkout/buy/...';
 ```
 
 If the URL is empty (`''`), all "Buy" buttons will show a tooltip saying "Purchase link coming soon!" and clicking them shows a toast notification.
+
+### Setting the Beta Form Endpoint
+
+Set the Formspree (or compatible) endpoint used by `beta.html`:
+
+```js
+window.FAILFIXER_BETA_FORM_ENDPOINT = 'https://formspree.io/f/abcde123';
+```
+
+The beta form includes:
+- required terms-acceptance checkboxes
+- honeypot + minimum time-to-submit anti-bot friction
+- browser/device metadata capture + generated SHA-256 client hash
+- explicit note that IP is logged by backend/hosting providers, not directly by browser JS
 
 ## Local Development
 

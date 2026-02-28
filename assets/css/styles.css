@@ -499,7 +499,8 @@ section:nth-child(even) { background: var(--ff-surface); }
   gap: 12px;
 }
 .contact-form input,
-.contact-form textarea {
+.contact-form textarea,
+.contact-form select {
   width: 100%;
   margin-bottom: 12px;
   background: #101028;
@@ -510,7 +511,8 @@ section:nth-child(even) { background: var(--ff-surface); }
   font: inherit;
 }
 .contact-form input:focus,
-.contact-form textarea:focus {
+.contact-form textarea:focus,
+.contact-form select:focus {
   outline: none;
   border-color: var(--ff-primary-lt);
 }
@@ -520,6 +522,70 @@ section:nth-child(even) { background: var(--ff-surface); }
   color: var(--ff-text-muted);
   font-size: 0.88rem;
   line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   BETA PAGE
+   ═══════════════════════════════════════════ */
+.beta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 24px;
+  align-items: start;
+}
+.beta-card {
+  background: var(--ff-surface-2);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 24px;
+}
+.beta-list {
+  margin: 14px 0;
+  padding-left: 22px;
+}
+.beta-list li {
+  color: var(--ff-text-muted);
+  margin-bottom: 8px;
+}
+.beta-form h2 { margin-bottom: 8px; }
+.beta-form-note {
+  color: var(--ff-text-muted);
+  font-size: 0.92rem;
+  margin-bottom: 14px;
+}
+.terms-box {
+  background: #0f2032;
+  border: 1px solid rgba(92,214,255,0.35);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0 14px;
+}
+.check-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 10px;
+  color: var(--ff-text);
+  font-size: 0.92rem;
+}
+.check-row input {
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  flex-shrink: 0;
+}
+.legal-disclaimer {
+  margin-top: 14px;
+  color: #ffd08a;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.hp-wrap {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 /* ═══════════════════════════════════════════
@@ -651,5 +717,6 @@ section:nth-child(even) { background: var(--ff-surface); }
   .steps { grid-template-columns: 1fr; gap: 24px; }
   .pricing-card { padding: 36px 24px; }
   .contact-grid { grid-template-columns: 1fr; }
+  .beta-grid { grid-template-columns: 1fr; }
   section { padding: 60px 0; }
 }

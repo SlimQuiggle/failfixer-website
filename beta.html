@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beta Tester Program – FailFixer</title>
+  <meta name="description" content="Apply to the FailFixer beta tester program. Accept beta terms, share basic system metadata, and receive Lemon Squeezy redemption/download instructions.">
+  <link rel="icon" href="assets/img/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo.png" alt="FailFixer logo">
+        Fail<span>Fixer</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="index.html#problem">Problem</a></li>
+        <li><a href="index.html#how-it-works">How It Works</a></li>
+        <li><a href="index.html#pricing">Pricing</a></li>
+        <li><a href="beta.html">Beta Tester</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="index.html#contact" class="btn btn-bug">🐞 Report Bug</a></li>
+        <li><a href="index.html#pricing" class="btn btn-primary" data-cta>Buy for $4.99</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <h1>FailFixer Beta Tester Program</h1>
+      <p>Apply for early access, test recovery workflows on real printers, and help shape release quality before broader rollout.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="beta-grid">
+        <div class="beta-card">
+          <h2>What beta testers get</h2>
+          <ul class="beta-list">
+            <li>Early access builds and feature previews</li>
+            <li>Priority support and direct bug-report feedback loop</li>
+            <li>Lemon Squeezy code redemption path for build download</li>
+            <li>Input on firmware/slicer compatibility priorities</li>
+          </ul>
+          <p class="legal-disclaimer"><strong>Important:</strong> This page includes draft beta terms/policy language for operational use. Consult legal counsel before production launch.</p>
+        </div>
+
+        <form class="contact-form beta-form" id="beta-application-form" method="POST" action="https://formspree.io/f/your-form-id">
+          <h2>Beta application</h2>
+          <p class="beta-form-note">Complete this form and accept the beta terms below. We review applications manually and follow up by email.</p>
+
+          <input type="hidden" name="form_type" value="failfixer_beta_application">
+          <input type="hidden" name="source_page" value="https://failfixer.com/beta.html">
+          <input type="hidden" name="submitted_at_utc" id="beta-submitted-at" value="">
+          <input type="hidden" name="rendered_at_utc" id="beta-rendered-at" value="">
+          <input type="hidden" name="js_enabled" value="true">
+          <input type="hidden" name="beta_form_seconds_elapsed" id="beta-seconds-elapsed" value="">
+
+          <input type="hidden" name="meta_user_agent" id="meta-user-agent" value="">
+          <input type="hidden" name="meta_timezone" id="meta-timezone" value="">
+          <input type="hidden" name="meta_platform" id="meta-platform" value="">
+          <input type="hidden" name="meta_language" id="meta-language" value="">
+          <input type="hidden" name="meta_languages" id="meta-languages" value="">
+          <input type="hidden" name="meta_screen" id="meta-screen" value="">
+          <input type="hidden" name="meta_viewport" id="meta-viewport" value="">
+          <input type="hidden" name="meta_color_depth" id="meta-color-depth" value="">
+          <input type="hidden" name="meta_hardware_concurrency" id="meta-hardware-concurrency" value="">
+          <input type="hidden" name="meta_device_memory" id="meta-device-memory" value="">
+          <input type="hidden" name="meta_touch_points" id="meta-touch-points" value="">
+          <input type="hidden" name="meta_cookie_enabled" id="meta-cookie-enabled" value="">
+          <input type="hidden" name="meta_do_not_track" id="meta-do-not-track" value="">
+          <input type="hidden" name="meta_referrer" id="meta-referrer" value="">
+          <input type="hidden" name="meta_page_url" id="meta-page-url" value="">
+          <input type="hidden" name="meta_client_fingerprint_sha256" id="meta-client-fingerprint" value="">
+
+          <div class="hp-wrap" aria-hidden="true">
+            <label for="company_name">Leave this field empty</label>
+            <input type="text" name="company_name" id="company_name" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="contact-grid">
+            <input type="text" name="full_name" placeholder="Full name" minlength="2" required>
+            <input type="email" name="email" placeholder="Best email for invite" required>
+          </div>
+
+          <div class="contact-grid">
+            <input type="text" name="country" placeholder="Country / region" required>
+            <input type="text" name="timezone_claimed" placeholder="Your timezone (example: America/Chicago)">
+          </div>
+
+          <div class="contact-grid">
+            <input type="text" name="printer_model" placeholder="Primary printer model" required>
+            <input type="text" name="firmware" placeholder="Firmware (Marlin / Klipper / RepRapFirmware)" required>
+          </div>
+
+          <div class="contact-grid">
+            <input type="text" name="slicer" placeholder="Main slicer (Cura / OrcaSlicer / PrusaSlicer...)" required>
+            <select name="print_frequency" required>
+              <option value="" disabled selected>How often do you print?</option>
+              <option>Daily</option>
+              <option>A few times per week</option>
+              <option>Weekly</option>
+              <option>Occasionally</option>
+            </select>
+          </div>
+
+          <textarea name="why_beta" rows="3" placeholder="Why do you want to join beta?" minlength="20" required></textarea>
+          <textarea name="test_commitment" rows="3" placeholder="How quickly can you test builds and report results?" minlength="20" required></textarea>
+
+          <div class="terms-box">
+            <p><strong>Beta Terms Acceptance (required):</strong> I understand this is pre-release software and I agree not to resell, redistribute, sublicense, publish, crack, reverse engineer, decompile, disassemble, or otherwise misuse the beta build, license codes, or download links. I will use the beta only for my own testing, provide honest feedback, and report issues responsibly.</p>
+            <label class="check-row"><input type="checkbox" id="beta-terms-accept" name="beta_terms_accept" value="yes" required> I agree to the beta tester terms above.</label>
+            <label class="check-row"><input type="checkbox" name="beta_risk_ack" value="yes" required> I understand beta software may contain defects and I am responsible for safe printer operation.</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Apply for Beta Access</button>
+          <p class="contact-note">Privacy note: this form collects application details plus basic browser/device metadata to help deter abuse and duplicate signups. IP address is not captured by browser JavaScript; it may be logged by the form/hosting provider as part of normal server operations.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="beta-card">
+        <p class="section-label">Redemption & Download</p>
+        <h2>Lemon Squeezy code redemption flow</h2>
+        <ol class="beta-list">
+          <li>Approval email includes your beta code/invite instructions.</li>
+          <li>Open the Lemon Squeezy checkout/redeem link from the email.</li>
+          <li>Apply your beta code/coupon in checkout (price may reduce to $0 based on campaign setup).</li>
+          <li>Complete checkout to generate your order + license record.</li>
+          <li>Use the download link and license key from the Lemon Squeezy receipt email inside FailFixer.</li>
+        </ol>
+        <p class="contact-note">If code redemption fails, contact <a href="mailto:support@failfixer.com">support@failfixer.com</a> with the email used during checkout and (if available) the order number.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="beta.html">Beta Tester</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+      </ul>
+      <p class="footer-copy">&copy; 2026 FailFixer. All rights reserved. · Support: <a href="mailto:support@failfixer.com">support@failfixer.com</a></p>
+    </div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

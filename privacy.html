@@ -27,6 +27,7 @@
         <li><a href="index.html#problem">Problem</a></li>
         <li><a href="index.html#how-it-works">How It Works</a></li>
         <li><a href="index.html#pricing">Pricing</a></li>
+        <li><a href="beta.html">Beta Tester</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="index.html#contact" class="btn btn-bug">🐞 Report Bug</a></li>
         <li><a href="index.html#pricing" class="btn btn-primary" data-cta>Buy for $4.99</a></li>
@@ -38,7 +39,7 @@
   <section class="page-header">
     <div class="container">
       <h1>Privacy Policy</h1>
-      <p>Last updated: February 26, 2026</p>
+      <p>Last updated: February 27, 2026</p>
     </div>
   </section>
 
@@ -48,57 +49,55 @@
       <div class="legal-content">
 
         <h2>1. Overview</h2>
-        <p>FailFixer ("the Software") is a desktop application that runs entirely on your local computer. This Privacy Policy explains what data we collect (or don't collect) and how we handle your information.</p>
-        <p><strong>The short version:</strong> FailFixer collects no data. It has no telemetry, no analytics, no accounts, and no network connectivity.</p>
+        <p>This Privacy Policy explains how FailFixer handles data across (a) the desktop app, (b) the website, and (c) beta/support forms.</p>
+        <p><strong>Important:</strong> This is operational draft policy language and may need jurisdiction-specific updates. Consult legal counsel before production launch.</p>
 
-        <h2>2. Data Collection</h2>
-        <p>FailFixer does <strong>not</strong> collect, transmit, or store any personal data. Specifically:</p>
+        <h2>2. Desktop App Data</h2>
+        <p>FailFixer is primarily local-first. Your G-code files and generated output remain on your device unless you choose to share files with support.</p>
         <ul>
-          <li><strong>No personal information:</strong> No names, emails, addresses, or identifiers are collected</li>
-          <li><strong>No usage data:</strong> No analytics, telemetry, or usage tracking of any kind</li>
-          <li><strong>No G-code data:</strong> Your G-code files are processed locally and never leave your computer</li>
-          <li><strong>No network requests:</strong> The Software makes no internet connections</li>
-          <li><strong>No cookies:</strong> The desktop application does not use cookies</li>
+          <li><strong>Local processing:</strong> G-code parsing and recovery file generation are performed locally.</li>
+          <li><strong>License validation:</strong> activation/license checks may involve Lemon Squeezy licensing infrastructure.</li>
+          <li><strong>No hidden cloud sync:</strong> we do not advertise background cloud upload of your print files.</li>
         </ul>
 
-        <h2>3. Website Data</h2>
-        <p>This website (the FailFixer marketing site) is a static website. It does not use cookies, tracking pixels, or analytics services. No personal data is collected through this website.</p>
-        <p>If this website is hosted on a third-party platform (e.g., Vercel, Cloudflare Pages), the hosting provider may collect standard server logs (IP addresses, request timestamps). This data is controlled by the hosting provider under their own privacy policy.</p>
-
-        <h2>4. Purchase Data</h2>
-        <p>FailFixer is sold through Lemon Squeezy (or another third-party payment processor). When you make a purchase:</p>
+        <h2>3. Website & Form Data We Collect</h2>
+        <p>When you submit support, bug, or beta forms, we collect the data you enter plus limited technical metadata to reduce abuse and duplicate submissions.</p>
         <ul>
-          <li>Your payment information is handled entirely by the payment processor</li>
-          <li>We may receive your email address and name for order fulfillment purposes</li>
-          <li>We do not store credit card numbers or payment details</li>
-          <li>The payment processor's privacy policy governs how your payment data is handled</li>
+          <li><strong>Submitted fields:</strong> name, email, printer/software details, and message content.</li>
+          <li><strong>Basic client metadata:</strong> user agent, browser language, timezone, platform, viewport/screen information, and similar device/browser signals available to standard web APIs.</li>
+          <li><strong>Generated client hash:</strong> a SHA-256 hash built from available browser/device signals to help detect repeated abusive submissions.</li>
+          <li><strong>Timing/anti-bot fields:</strong> form render/submit timestamps, elapsed seconds, and honeypot field result.</li>
+          <li><strong>Server/provider logs:</strong> IP address and request metadata may be logged by hosting/form providers as part of normal operations.</li>
+        </ul>
+        <p>We do <strong>not</strong> claim to collect hardware serial numbers, MAC addresses, or other identifiers that are not exposed by normal browser security models.</p>
+
+        <h2>4. Why We Use This Data</h2>
+        <ul>
+          <li>Evaluate beta applications and communicate approvals/next steps</li>
+          <li>Provide support and troubleshoot issues</li>
+          <li>Prevent spam, bot submissions, code abuse, and repeated fraudulent requests</li>
+          <li>Operate licensing, delivery, and customer service workflows</li>
         </ul>
 
-        <h2>5. Data Storage</h2>
-        <p>All data processed by FailFixer (G-code files, settings, output files) is stored locally on your computer. We have no access to this data. You are responsible for managing and securing your own files.</p>
-
-        <h2>6. Third-Party Services</h2>
-        <p>FailFixer itself uses no third-party services beyond licensing/payment and static hosting. The following services are involved in purchase/distribution:</p>
+        <h2>5. Third-Party Processors</h2>
+        <p>We use third parties to run parts of the workflow. Their policies govern data they process on our behalf.</p>
         <ul>
-          <li><strong>Lemon Squeezy:</strong> Payment processing, license keys, and digital delivery — <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">Lemon Squeezy Privacy Policy</a></li>
-          <li><strong>Hosting provider:</strong> Static website hosting (Vercel/Cloudflare) — see their respective privacy policies</li>
+          <li><strong>Lemon Squeezy:</strong> payment processing, licensing, digital fulfillment — <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">Privacy Policy</a></li>
+          <li><strong>Form backend provider (e.g., Formspree/FormSubmit):</strong> form delivery, spam filtering, submission transport</li>
+          <li><strong>Hosting provider:</strong> static site hosting and standard server logs</li>
         </ul>
 
-        <h2>7. Children's Privacy</h2>
-        <p>FailFixer is not directed at children under 13. We do not knowingly collect information from children. If you are a parent and believe your child has provided personal information through a purchase, please contact us.</p>
+        <h2>6. Retention & Security</h2>
+        <p>We retain submitted form records and related metadata only as long as reasonably necessary for support, beta administration, abuse prevention, legal compliance, and operational records. We use reasonable administrative and technical safeguards, but no internet transmission/storage is guaranteed 100% secure.</p>
 
-        <h2>8. Data Rights</h2>
-        <p>Since FailFixer collects no personal data through the Software itself, there is generally no data to access, modify, or delete. For purchase-related data held by our payment processor, you may exercise your data rights directly with them.</p>
-        <p>If you have questions about any data we may hold (e.g., from email correspondence), contact us and we will respond promptly.</p>
+        <h2>7. Your Choices & Rights</h2>
+        <p>Depending on your location, you may have rights to request access, correction, deletion, or objection related to personal data. To request this, email <a href="mailto:support@failfixer.com">support@failfixer.com</a>. For payment/order data, Lemon Squeezy may handle requests directly for records they control.</p>
 
-        <h2>9. Security</h2>
-        <p>FailFixer processes all data locally on your computer. There are no servers, databases, or cloud services that store your data. The security of your G-code files and generated output depends on your own computer's security.</p>
+        <h2>8. Changes to This Policy</h2>
+        <p>We may update this policy from time to time. Updates will be posted here with a revised date.</p>
 
-        <h2>10. Changes to This Policy</h2>
-        <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. Continued use of the Software or website after changes constitutes acceptance of the revised policy.</p>
-
-        <h2>11. Contact</h2>
-        <p>If you have questions about this Privacy Policy, email <a href="mailto:support@failfixer.com">support@failfixer.com</a>.</p>
+        <h2>9. Contact</h2>
+        <p>If you have privacy questions, email <a href="mailto:support@failfixer.com">support@failfixer.com</a>.</p>
 
       </div>
     </div>
@@ -109,6 +108,7 @@
     <div class="container">
       <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
+        <li><a href="beta.html">Beta Tester</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="terms.html">Terms of Service</a></li>
         <li><a href="privacy.html">Privacy Policy</a></li>
@@ -121,3 +121,5 @@
   <script src="assets/js/main.js"></script>
 </body>
 </html>
+
+

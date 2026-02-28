@@ -44,7 +44,6 @@
       menu.classList.toggle('open');
       toggle.setAttribute('aria-expanded', menu.classList.contains('open'));
     });
-    // Close menu on link click (mobile)
     menu.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () {
         menu.classList.remove('open');
@@ -59,7 +58,6 @@
       btn.addEventListener('click', function () {
         var item = btn.parentElement;
         var wasOpen = item.classList.contains('open');
-        // close all
         document.querySelectorAll('.faq-item.open').forEach(function (el) {
           el.classList.remove('open');
           el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
@@ -93,6 +91,100 @@
     if (timeField) timeField.value = new Date().toISOString();
   }
 
+  async function sha256Hex(input) {
+    if (!window.crypto || !window.crypto.subtle || !window.TextEncoder) return 'unsupported';
+    var data = new TextEncoder().encode(input);
+    var hash = await window.crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash)).map(function (b) {
+      return b.toString(16).padStart(2, '0');
+    }).join('');
+  }
+
+  async function wireBetaForm() {
+    var form = document.getElementById('beta-application-form');
+    if (!form) return;
+
+    if (window.FAILFIXER_BETA_FORM_ENDPOINT) {
+      form.action = window.FAILFIXER_BETA_FORM_ENDPOINT;
+    }
+
+    var renderedAt = Date.now();
+    var renderedAtField = document.getElementById('beta-rendered-at');
+    if (renderedAtField) renderedAtField.value = new Date(renderedAt).toISOString();
+
+    var meta = {
+      ua: navigator.userAgent || 'unknown',
+      tz: (Intl.DateTimeFormat && Intl.DateTimeFormat().resolvedOptions().timeZone) || 'unknown',
+      platform: navigator.platform || 'unknown',
+      language: navigator.language || 'unknown',
+      languages: (navigator.languages || []).join(','),
+      screen: window.screen ? [screen.width, screen.height, screen.availWidth, screen.availHeight].join('x') : 'unknown',
+      viewport: [window.innerWidth, window.innerHeight].join('x'),
+      colorDepth: window.screen ? String(screen.colorDepth) : 'unknown',
+      hc: String(navigator.hardwareConcurrency || 'unknown'),
+      dm: String(navigator.deviceMemory || 'unknown'),
+      touch: String(navigator.maxTouchPoints || 0),
+      cookie: String(navigator.cookieEnabled),
+      dnt: String(navigator.doNotTrack || 'unspecified'),
+      referrer: document.referrer || 'direct',
+      page: window.location.href
+    };
+
+    function setField(id, value) {
+      var field = document.getElementById(id);
+      if (field) field.value = value;
+    }
+
+    setField('meta-user-agent', meta.ua);
+    setField('meta-timezone', meta.tz);
+    setField('meta-platform', meta.platform);
+    setField('meta-language', meta.language);
+    setField('meta-languages', meta.languages);
+    setField('meta-screen', meta.screen);
+    setField('meta-viewport', meta.viewport);
+    setField('meta-color-depth', meta.colorDepth);
+    setField('meta-hardware-concurrency', meta.hc);
+    setField('meta-device-memory', meta.dm);
+    setField('meta-touch-points', meta.touch);
+    setField('meta-cookie-enabled', meta.cookie);
+    setField('meta-do-not-track', meta.dnt);
+    setField('meta-referrer', meta.referrer);
+    setField('meta-page-url', meta.page);
+
+    var fpSource = [
+      meta.ua, meta.tz, meta.platform, meta.language, meta.languages, meta.screen,
+      meta.viewport, meta.colorDepth, meta.hc, meta.dm, meta.touch
+    ].join('|');
+    var fpHash = await sha256Hex(fpSource);
+    setField('meta-client-fingerprint', fpHash);
+
+    form.addEventListener('submit', function (e) {
+      var honeypot = form.querySelector('input[name="company_name"]');
+      if (honeypot && honeypot.value.trim() !== '') {
+        e.preventDefault();
+        showToast('Submission blocked. Please try again.');
+        return;
+      }
+
+      var elapsedSec = (Date.now() - renderedAt) / 1000;
+      if (elapsedSec < 4) {
+        e.preventDefault();
+        showToast('Please take a moment to review the form before submitting.');
+        return;
+      }
+
+      var termsCheck = document.getElementById('beta-terms-accept');
+      if (termsCheck && !termsCheck.checked) {
+        e.preventDefault();
+        showToast('You must accept the beta tester terms to apply.');
+        return;
+      }
+
+      setField('beta-submitted-at', new Date().toISOString());
+      setField('beta-seconds-elapsed', elapsedSec.toFixed(1));
+    });
+  }
+
   /* ── Init ── */
   document.addEventListener('DOMContentLoaded', function () {
     wireCTAs();
@@ -100,5 +192,6 @@
     wireAccordion();
     wireSmoothScroll();
     wireBugReportMeta();
+    wireBetaForm().catch(function () { /* non-fatal */ });
   });
 })();
