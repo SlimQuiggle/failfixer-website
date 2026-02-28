@@ -1,14 +1,5 @@
 const RESEND_API_URL = 'https://api.resend.com/emails';
 
-function json(status, payload) {
-  return new Response(JSON.stringify(payload), {
-    status,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8'
-    }
-  });
-}
-
 function esc(value) {
   return String(value ?? '')
     .replace(/&/g, '&amp;')
@@ -27,18 +18,18 @@ function collect(data) {
 }
 
 function getRequestMeta(req) {
-  const forwardedFor = req.headers.get('x-forwarded-for') || '';
-  const realIp = req.headers.get('x-real-ip') || '';
-  const cfConnectingIp = req.headers.get('cf-connecting-ip') || '';
-  const ip = (forwardedFor.split(',')[0] || realIp || cfConnectingIp || '').trim() || 'unknown';
+  const forwardedFor = req.headers['x-forwarded-for'] || '';
+  const realIp = req.headers['x-real-ip'] || '';
+  const cfConnectingIp = req.headers['cf-connecting-ip'] || '';
+  const ip = (String(forwardedFor).split(',')[0] || realIp || cfConnectingIp || '').trim() || 'unknown';
 
   return {
     ip,
-    forwardedFor: forwardedFor || 'unknown',
-    realIp: realIp || 'unknown',
-    cfConnectingIp: cfConnectingIp || 'unknown',
-    requestId: req.headers.get('x-vercel-id') || req.headers.get('x-request-id') || 'unknown',
-    vercelUrl: req.headers.get('x-forwarded-host') || process.env.VERCEL_URL || 'unknown',
+    forwardedFor: String(forwardedFor || 'unknown'),
+    realIp: String(realIp || 'unknown'),
+    cfConnectingIp: String(cfConnectingIp || 'unknown'),
+    requestId: String(req.headers['x-vercel-id'] || req.headers['x-request-id'] || 'unknown'),
+    vercelUrl: String(req.headers['x-forwarded-host'] || process.env.VERCEL_URL || 'unknown'),
     serverTimeIso: new Date().toISOString()
   };
 }
@@ -96,9 +87,28 @@ function renderHtml(body, meta) {
   `;
 }
 
-export default async function handler(req) {
+async function resendWithTimeout(payload, apiKey, timeoutMs) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(RESEND_API_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
-    return json(405, { ok: false, error: 'Method not allowed' });
+    return res.status(405).json({ ok: false, error: 'Method not allowed' });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -107,21 +117,14 @@ export default async function handler(req) {
   const replyToAddress = process.env.BETA_REPLY_TO_EMAIL || 'betatester@failfixer.com';
 
   if (!apiKey) {
-    return json(500, { ok: false, error: 'Email service not configured' });
+    return res.status(500).json({ ok: false, error: 'Email service not configured' });
   }
 
-  let raw;
-  try {
-    raw = await req.json();
-  } catch {
-    return json(400, { ok: false, error: 'Invalid JSON payload' });
-  }
-
-  const body = collect(raw);
+  const body = collect(req.body || {});
   const meta = getRequestMeta(req);
 
   if (body.company_name) {
-    return json(200, { ok: true });
+    return res.status(200).json({ ok: true });
   }
 
   const required = [
@@ -139,13 +142,13 @@ export default async function handler(req) {
 
   for (const key of required) {
     if (!body[key] || String(body[key]).trim() === '') {
-      return json(400, { ok: false, error: `Missing required field: ${key}` });
+      return res.status(400).json({ ok: false, error: `Missing required field: ${key}` });
     }
   }
 
   const email = String(body.email || '');
   if (!/^\S+@\S+\.\S+$/.test(email)) {
-    return json(400, { ok: false, error: 'Invalid email address' });
+    return res.status(400).json({ ok: false, error: 'Invalid email address' });
   }
 
   const subject = `FailFixer Beta Application: ${body.full_name} <${email}>`;
@@ -200,19 +203,10 @@ export default async function handler(req) {
 
   let resendRes;
   try {
-    const resendTimeout = AbortSignal.timeout(15000);
-    resendRes = await fetch(RESEND_API_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(resendPayload),
-      signal: resendTimeout
-    });
+    resendRes = await resendWithTimeout(resendPayload, apiKey, 15000);
   } catch (err) {
-    const isTimeout = err && (err.name === 'TimeoutError' || err.name === 'AbortError');
-    return json(504, {
+    const isTimeout = err && err.name === 'AbortError';
+    return res.status(504).json({
       ok: false,
       error: isTimeout ? 'Email service timed out' : 'Email service request failed'
     });
@@ -220,12 +214,12 @@ export default async function handler(req) {
 
   if (!resendRes.ok) {
     const errText = await resendRes.text();
-    return json(502, {
+    return res.status(502).json({
       ok: false,
       error: 'Failed to send email',
       detail: errText.slice(0, 600)
     });
   }
 
-  return json(200, { ok: true });
-}
+  return res.status(200).json({ ok: true });
+};
