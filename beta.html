@@ -140,6 +140,43 @@
     </div>
   </section>
 
+  <section>
+    <div class="container">
+      <div class="beta-card">
+        <p class="section-label">Beta Test Instructions</p>
+        <h2>How to test each FailFixer mode</h2>
+        <p class="contact-note">Please test with low-risk parts first and never leave the printer unattended during first runs.</p>
+
+        <h3>Mode A: Resume In-Air (advanced)</h3>
+        <ol class="beta-list">
+          <li>Use a print that failed mid-job but is still firmly attached to the bed.</li>
+          <li>In FailFixer, choose <strong>Resume in air at fail height</strong>.</li>
+          <li>Start with a conservative layer selection and verify preview details before generating.</li>
+          <li>On printer start, watch closely for: safe Z lift before XY movement, no crash into existing part, and stable re-entry at resumed layer.</li>
+          <li>Record outcome: success/fail, printer model, slicer, firmware profile, and exact failure point if any.</li>
+        </ol>
+
+        <h3>Mode B: Restart From Plate (recommended)</h3>
+        <ol class="beta-list">
+          <li>Use the same failed original file and choose <strong>Restart from plate</strong>.</li>
+          <li>Generate the rebuilt top section and print it on an empty leveled plate.</li>
+          <li>Confirm first layer adhesion, normal extrusion, and correct geometry for the replacement section.</li>
+          <li>Verify the replacement part aligns with the failed section for post-print glue/join workflow.</li>
+          <li>Record outcome: print quality, fit/alignment, and any startup or extrusion oddities.</li>
+        </ol>
+
+        <h3>What to send in bug reports</h3>
+        <ul class="beta-list">
+          <li>Original source G-code (or first 150 lines + generated file first 150 lines)</li>
+          <li>Generated FailFixer G-code</li>
+          <li>Printer model + firmware + slicer version</li>
+          <li>Screenshots/video of startup and failure moment (if applicable)</li>
+          <li>Whether ACE/AMS-like multi-filament hardware was connected</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="container">
       <ul class="footer-links">
