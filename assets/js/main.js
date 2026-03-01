@@ -4,19 +4,10 @@
 
   /* ── CTA link wiring ── */
   function wireCTAs() {
-    const url = window.FAILFIXER_GUMROAD_URL;
+    const url = 'beta.html';
     document.querySelectorAll('[data-cta]').forEach(function (el) {
-      if (url) {
-        el.href = url;
-        el.removeAttribute('data-tooltip');
-      } else {
-        el.href = '#';
-        el.setAttribute('data-tooltip', 'Purchase link coming soon!');
-        el.addEventListener('click', function (e) {
-          e.preventDefault();
-          showToast('Purchase link coming soon — check back shortly!');
-        });
-      }
+      el.href = url;
+      el.removeAttribute('data-tooltip');
     });
   }
 
